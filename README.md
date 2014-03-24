@@ -27,7 +27,7 @@ For example:
         public void TestAgeCalculation()
         {
             var person = new Person(
-                name: Any.String(), /* not relevant to DOB calc */
+                name: Any.String(), /* not relevant to age calc */
                 dateOfBirth: DateTime.Today.AddYears(-10));
             Assert.AreEqual(10, person.CalculateAge());
         }
