@@ -153,7 +153,7 @@ namespace AnyValue
         /// </summary>
         /// <typeparam name="TEnum">The enumeration type.</typeparam>
         /// <returns>The enumeration value.</returns>
-        public static TEnum Enumeration<TEnum>() where TEnum : struct, IConvertible
+        public static TEnum Of<TEnum>() where TEnum : struct, IConvertible
         {
             Array enumValues = Enum.GetValues(typeof(TEnum));
             return (TEnum)enumValues.GetValue(Rand.Next(0, enumValues.Length));

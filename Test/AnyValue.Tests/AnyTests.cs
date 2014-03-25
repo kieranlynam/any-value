@@ -95,7 +95,7 @@ namespace AnyValue.Tests
         [TestMethod]
         public void EnumerationReturnsValidValue()
         {
-            var result = Any.Enumeration<SampleEnumeration>();
+            var result = Any.Of<SampleEnumeration>();
 
             Assert.IsTrue(Enum.IsDefined(typeof(SampleEnumeration), result));
         }
