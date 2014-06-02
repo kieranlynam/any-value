@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace AnyValue
@@ -153,10 +154,56 @@ namespace AnyValue
         /// </summary>
         /// <typeparam name="TEnum">The enumeration type.</typeparam>
         /// <returns>The enumeration value.</returns>
-        public static TEnum Of<TEnum>() where TEnum : struct, IConvertible
+        public static TEnum Of<TEnum>() where TEnum : struct, IConvertible, IComparable
         {
             Array enumValues = Enum.GetValues(typeof(TEnum));
             return (TEnum)enumValues.GetValue(Rand.Next(0, enumValues.Length));
+        }
+
+        /// <summary>
+        /// Gets a random enumeration value which is different from <paramref name="except"/>.
+        /// </summary>
+        /// <typeparam name="TEnum">The enumeration type.</typeparam>
+        /// <returns>The enumeration value.</returns>
+        public static TEnum Of<TEnum>(TEnum except) where TEnum : struct, IConvertible, IComparable
+        {
+            TEnum selected;
+            do
+            {
+                selected = Of<TEnum>();
+            } while (selected.CompareTo(except) == 0);
+
+            return selected;
+        }
+
+        /// <summary>
+        /// Gets a random enumeration value which is different from any value in <param name="except">.</param>
+        /// </summary>
+        /// <typeparam name="TEnum">The enumeration type.</typeparam>
+        /// <returns>The enumeration value.</returns>
+        public static TEnum Of<TEnum>(ICollection<TEnum> except) where TEnum : struct, IConvertible, IComparable
+        {
+            TEnum selected;
+
+            bool hasSelectedExclusion;
+
+            do
+            {
+                selected = Of<TEnum>();
+
+                hasSelectedExclusion = false;
+
+                foreach (var exclusion in except)
+                {
+                    if (selected.CompareTo(exclusion) == 0)
+                    {
+                        hasSelectedExclusion = true;
+                        break;
+                    }
+                }
+            } while (hasSelectedExclusion);
+
+            return selected;
         }
     }
 }

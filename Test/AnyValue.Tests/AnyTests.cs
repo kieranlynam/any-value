@@ -100,6 +100,31 @@ namespace AnyValue.Tests
             Assert.IsTrue(Enum.IsDefined(typeof(SampleEnumeration), result));
         }
 
+        [TestMethod]
+        public void EnumerationDoesNotReturnExcludedValue()
+        {
+            for (int i = 0; i < 1000; i++)
+            {
+                var result = Any.Of<SampleEnumeration>(except: SampleEnumeration.Red);
+
+                Assert.IsTrue(Enum.IsDefined(typeof(SampleEnumeration), result));
+                Assert.AreNotEqual(SampleEnumeration.Red, result);
+            }
+        }
+
+        [TestMethod]
+        public void EnumerationDoesNotReturnAnyOfGivenExceptionCollection()
+        {
+            for (int i = 0; i < 1000; i++)
+            {
+                var result = Any.Of<SampleEnumeration>(except: new[] { SampleEnumeration.Red, SampleEnumeration.Blue });
+
+                Assert.IsTrue(Enum.IsDefined(typeof(SampleEnumeration), result));
+                Assert.AreNotEqual(SampleEnumeration.Red, result);
+                Assert.AreNotEqual(SampleEnumeration.Blue, result);
+            }
+        }
+
         private enum SampleEnumeration
         {
             Red,
