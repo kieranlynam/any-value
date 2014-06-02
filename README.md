@@ -1,5 +1,3 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/7m55r6uwx45c8p1j)](https://ci.appveyor.com/project/KieranLynam/any-value)
-
 any-value
 =========
 
@@ -34,3 +32,4 @@ For example:
             Assert.AreEqual(10, person.CalculateAge());
         }
     }
+[![Build status](https://ci.appveyor.com/api/projects/status/7m55r6uwx45c8p1j)](https://ci.appveyor.com/project/KieranLynam/any-value)
